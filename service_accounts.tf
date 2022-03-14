@@ -1,7 +1,7 @@
 resource "kubernetes_service_account" "metrics_server" {
   metadata {
     name      = "metrics-server"
-    namespace = "kube-system"
+    namespace = var.namespace
 
     labels = {
       k8s-app = "metrics-server"
@@ -56,7 +56,7 @@ resource "kubernetes_cluster_role" "system_metrics_server" {
 resource "kubernetes_role_binding" "metrics_server_auth_reader" {
   metadata {
     name      = "metrics-server-auth-reader"
-    namespace = "kube-system"
+    namespace = var.namespace
 
     labels = {
       k8s-app = "metrics-server"
@@ -66,7 +66,7 @@ resource "kubernetes_role_binding" "metrics_server_auth_reader" {
   subject {
     kind      = "ServiceAccount"
     name      = "metrics-server"
-    namespace = "kube-system"
+    namespace = var.namespace
   }
 
   role_ref {
@@ -88,7 +88,7 @@ resource "kubernetes_cluster_role_binding" "metrics_server_system_auth_delegator
   subject {
     kind      = "ServiceAccount"
     name      = "metrics-server"
-    namespace = "kube-system"
+    namespace = var.namespace
   }
 
   role_ref {
@@ -110,7 +110,7 @@ resource "kubernetes_cluster_role_binding" "system_metrics_server" {
   subject {
     kind      = "ServiceAccount"
     name      = "metrics-server"
-    namespace = "kube-system"
+    namespace = var.namespace
   }
 
   role_ref {

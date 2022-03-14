@@ -1,4 +1,4 @@
-resource "kubernetes_api_service" "v_1_beta_1_.metrics.k_8_s.io" {
+resource "kubernetes_api_service" "v1_beta" {
   metadata {
     name = "v1beta1.metrics.k8s.io"
 
@@ -9,7 +9,7 @@ resource "kubernetes_api_service" "v_1_beta_1_.metrics.k_8_s.io" {
 
   spec {
     service {
-      namespace = "kube-system"
+      namespace = var.namespace
       name      = "metrics-server"
     }
 
