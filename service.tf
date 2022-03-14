@@ -1,7 +1,7 @@
 resource "kubernetes_service" "metrics_server" {
   metadata {
     name      = "metrics-server"
-    namespace = "kube-system"
+    namespace = var.namespace
 
     labels = {
       k8s-app = "metrics-server"
