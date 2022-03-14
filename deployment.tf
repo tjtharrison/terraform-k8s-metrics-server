@@ -26,7 +26,7 @@ resource "kubernetes_deployment" "metrics_server" {
       spec {
         volume {
           name      = "tmp-dir"
-          empty_dir = {}
+          empty_dir {}
         }
 
         container {
