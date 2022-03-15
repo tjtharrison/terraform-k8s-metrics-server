@@ -14,18 +14,18 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch_depth: 0
 
+    - name: terraform fmt
+      uses: dflook/terraform-fmt@v1
+      with:
+        path: .
+
     - name: Render terraform docs and push changes back to PR
       uses: terraform-docs/gh-actions@main
       with:
         working-dir: .
         output-file: README.md
         output-method: inject
-        git-push: "false"
-
-    - name: terraform fmt
-      uses: dflook/terraform-fmt@v1
-      with:
-        path: .
+        git-push: "true"
 
     - uses: actions/labeler@v4
       with:
