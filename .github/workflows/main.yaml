@@ -8,6 +8,10 @@ jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: main
+        fetch_depth: 0
       - run: |
           sudo apt-get install jq npm -y
           npm version minor
