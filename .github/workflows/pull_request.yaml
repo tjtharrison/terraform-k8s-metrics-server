@@ -2,13 +2,22 @@ name: Format pull request
 on:
   - pull_request
 
+env:
+  repo-token: "${{ secrets.GITHUB_TOKEN }}"
+
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.ref }}
+        fetch_depth: 0
+
+    - name: terraform fmt
+      uses: dflook/terraform-fmt@v1
+      with:
+        path: .
 
     - name: Render terraform docs and push changes back to PR
       uses: terraform-docs/gh-actions@main
@@ -18,11 +27,6 @@ jobs:
         output-method: inject
         git-push: "true"
 
-    - name: terraform fmt
-      uses: dflook/terraform-fmt@v1
-      with:
-        path: .
-
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
@@ -30,3 +34,4 @@ jobs:
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Labelled and updated docs
+        file_pattern: "**.tf *.md"
