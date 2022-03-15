@@ -20,7 +20,7 @@ jobs:
         working-dir: .
         output-file: README.md
         output-method: inject
-        git-push: "true"
+        git-push: "false"
 
     - name: terraform fmt
       uses: dflook/terraform-fmt@v1
